@@ -20,9 +20,13 @@ class Customer extends Model
      * @var array
      */
     protected $fillable = [
-        'username', 'password', 'balance', 'unit'
+        'username', 'password', 'balance', 'unit', 'name'
     ];
 
+    protected $casts = [
+        'unit' => 'decimal:4',
+        'balance' => 'decimal:2'
+    ];
     /**
      * The attributes excluded from the model's JSON form.
      *

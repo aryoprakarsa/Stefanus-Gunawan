@@ -18,6 +18,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->group(['prefix' => 'api'], function() use ($router) {
+    $router->get('show-all', ['uses' => 'CustomerController@showAll']);
+    $router->post('register',['uses' => 'CustomerController@addCustomer']);
+});
+
 // $router->get('/key', function() {
 //     return Str::random(32);
 // });
