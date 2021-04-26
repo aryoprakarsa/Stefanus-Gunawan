@@ -31,7 +31,7 @@ class CustomerController extends Controller
     public function roundDown($val, $behindComma) {
         return floor($val * pow(10, $behindComma)) / pow(10,$behindComma);
     }
-    
+
     public function addCustomer(Request $request) {
         $name = $request->input('name');
         $username = $request->input('username');
@@ -65,6 +65,27 @@ class CustomerController extends Controller
             ], 400);
         }
 
+    }
+
+    public function updateName($id, Request $request) {
+        $oldData = Customer::find($id);
+        $oldData->name = $request->input('newName');
+        $res = $oldData->save();
+        $newData = Customer::find($id);
+        if ($res) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Name updated',
+                'data' => $newData
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Name not updated',
+                'data' => ''
+            ], 400);
+        }
     }
 
     //

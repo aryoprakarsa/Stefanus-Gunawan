@@ -21,6 +21,7 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function() use ($router) {
     $router->get('show-all', ['uses' => 'CustomerController@showAll']);
     $router->post('register',['uses' => 'CustomerController@addCustomer']);
+    $router->post('update-name/{id}', ['uses' => 'CustomerController@updateName']);
 });
 
 // $router->get('/key', function() {
