@@ -10,6 +10,9 @@ class CustomerController extends Controller
 {
 
     public $nab = 3;
+    public const UNIT_BEHIND_COMMA = 4;
+    public const BALANCE_BEHIND_COMMA = 2;
+    public const NAB_BEHIND_COMMA = 2;
     /**
      * Create a new controller instance.
      *
@@ -38,9 +41,9 @@ class CustomerController extends Controller
         $hashed_pass = Hash::make($request->input('password'));
         // rounding down
         $raw_balance = $request->input('initBalance');
-        $balance = $this->roundDown($raw_balance, 2);
+        $balance = $this->roundDown($raw_balance, self::BALANCE_BEHIND_COMMA);
         $raw_unit = $balance/($this->nab);
-        $unit = $this->roundDown($raw_unit, 4);
+        $unit = $this->roundDown($raw_unit, self::UNIT_BEHIND_COMMA);
 
         $res = Customer::create([
             'name' => $name,
@@ -87,6 +90,24 @@ class CustomerController extends Controller
             ], 400);
         }
     }
+
+    public function changeUnit($oldBalance) {
+        $res = $oldBalance/($this->nab);
+        return $this->roundDown($res, self::UNIT_BEHIND_COMMA);
+    }
+
+    public function storeBalance($id, Request $request) {
+        $oldData = Customer::find($id);
+    }
+
+    public function withdrawBalance($id, Request $request) {
+
+    }
+
+    public function seeBalance($id) {
+
+    }
+
 
     //
 }
