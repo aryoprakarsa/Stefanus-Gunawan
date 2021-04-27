@@ -24,7 +24,8 @@ $router->group(['prefix' => 'api/v1'], function() use ($router) {
     $router->post('update-name/{id}', ['uses' => 'CustomerController@updateName']);
     $router->post('ib/updateTotalBalance', ['uses' => 'NABController@updateTotalBalance']);
     $router->post('ib/topup', ['uses' => 'CustomerController@storeBalance']);
-    $router->get('/ib/listNAB', ['uses' => 'NABController@list']);
+    $router->get('ib/listNAB', ['uses' => 'NABController@list']);
+    $router->post('ib/withdraw', ['uses' => 'CustomerController@withdrawBalance']);
 });
 
 // $router->get('/key', function() {

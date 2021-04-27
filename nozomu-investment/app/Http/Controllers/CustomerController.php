@@ -138,8 +138,43 @@ class CustomerController extends Controller
         }
     }
 
-    public function withdrawBalance($id, Request $request) {
+    public function withdrawBalance(Request $request) {
+        $id = $request->input('user_id');
+        $data = Customer::find($id);
+        $balanceWithdrawn = $request->input('amount_rupiah');
+        // update balance
+        $data->balance -= $balanceWithdrawn;
+        $unitWithdrawn = $this->changeUnit($balanceWithdrawn);
+        $data->unit = $data->unit - $unitWithdrawn;
 
+        if ($data->balance < 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You are withdrawing too much',
+                'data' => ''
+            ], 400);
+        }
+        $res = $data->save();
+        
+
+        if ($res) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Your balance is withdrawn',
+                'data' => [
+                    'nilai_unit_setelah_withdraw' => $unitWithdrawn,
+                    'nilai_unit_total' => $data->unit,
+                    'saldo_rupiah_total' => $data->balance
+                ]
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Your balance is not withdrawn',
+                'data' => ''
+            ], 400);
+        }
     }
 
     public function seeBalance($id) {
