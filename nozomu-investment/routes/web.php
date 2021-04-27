@@ -26,6 +26,7 @@ $router->group(['prefix' => 'api/v1'], function() use ($router) {
     $router->post('ib/topup', ['uses' => 'CustomerController@storeBalance']);
     $router->get('ib/listNAB', ['uses' => 'NABController@list']);
     $router->post('ib/withdraw', ['uses' => 'CustomerController@withdrawBalance']);
+    $router->get('ib/member', ['uses' => 'CustomerController@showAll']);
 });
 
 // $router->get('/key', function() {

@@ -25,7 +25,51 @@ class CustomerController extends Controller
         //
     }
 
-    public function showAll() {
+    public function showAll(Request $request) {
+        $user_id = $request->get('user_id');
+        $page = $request->get('page');
+        $limit = $request->get('limit');
+        if (!$page) {
+            $page = 0;
+        }
+        if (!$limit) {
+            $limit = 20;
+        }
+        if ($user_id) {
+            $data = Customer::find($user_id,['id AS user_id', 'unit AS total_unit_per_uid', 'balance AS total_amount_rupiah_per_uid']);
+            if ($data) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Success',
+                    'data' => $data
+                ], 200);
+            }
+            else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Fail',
+                    'data' => ''
+                ], 404);
+            }
+
+        }
+        else {
+            $data = Customer::all('id AS user_id', 'unit AS total_unit_per_uid', 'balance AS total_amount_rupiah_per_uid');
+            if ($data) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Success',
+                    'data' => $data
+                ], 200);
+            }
+            else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Fail',
+                    'data' => ''
+                ], 404);
+            }
+        }
         return response()->json(Customer::all());
     }
 

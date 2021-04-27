@@ -35,4 +35,6 @@ class Customer extends Model
     protected $hidden = [
         
     ];
+
+    
 }
