@@ -9,23 +9,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 
-class Customer extends Model
+class NAB extends Model
 {
     use HasFactory;
 
-    protected $table = 'customers';
+    protected $table = 'nab';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'username', 'balance', 'unit', 'name'
+        'nab'
     ];
 
     protected $casts = [
-        'unit' => 'decimal:4',
-        'balance' => 'decimal:2'
+        'nab' => 'decimal:2'
     ];
     /**
      * The attributes excluded from the model's JSON form.

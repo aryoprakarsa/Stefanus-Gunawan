@@ -18,10 +18,13 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'api'], function() use ($router) {
+$router->group(['prefix' => 'api/v1'], function() use ($router) {
     $router->get('show-all', ['uses' => 'CustomerController@showAll']);
-    $router->post('register',['uses' => 'CustomerController@addCustomer']);
+    $router->post('user/add',['uses' => 'CustomerController@addCustomer']);
     $router->post('update-name/{id}', ['uses' => 'CustomerController@updateName']);
+    $router->post('ib/updateTotalBalance', ['uses' => 'NABController@updateTotalBalance']);
+    $router->post('ib/topup', ['uses' => 'CustomerController@storeBalance']);
+    $router->get('/ib/listNAB', ['uses' => 'NABController@list']);
 });
 
 // $router->get('/key', function() {
